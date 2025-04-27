@@ -27,13 +27,21 @@ function displayHeroes(heroes) {
 
     heroes.forEach(hero => {
         const displayName = hero.localized_name;
-        //formatting the name so that - for more than one word name is not needed
-        let formattedName = displayName.toLowerCase().replace(/[ ]/g, '_').replace(/[\s-]/g, '');
-
+        
+        //formatting the name by using the internal naming provided by the API
+        const formattedName = hero.name.replace('npc_dota_hero_', '');
+        
         const spriteURL = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${formattedName}.png`;
 
         const card = document.createElement('div');
         card.className = 'hero-card';
+
+        //creating the inner container for flipping
+        const innerCard = document.createElement('div');
+        innerCard.className = 'hero-card-inner';
+
+        const cardFront = document.createElement('div');
+        cardFront.className = 'hero-card-front';
         
         const img = document.createElement('img');
         img.src = spriteURL;
@@ -47,9 +55,33 @@ function displayHeroes(heroes) {
         rolesDiv.className = 'hero-roles';
         rolesDiv.textContent = hero.roles.join(', ');
 
-        card.appendChild(img);
-        card.appendChild(nameDiv);
-        card.appendChild(rolesDiv);
+        cardFront.appendChild(img);
+        cardFront.appendChild(nameDiv);
+        cardFront.appendChild(rolesDiv);
+
+        const backCard = document.createElement('div');
+        backCard.className = 'hero-card-back';
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'hero-info';
+        infoDiv.innerHTML = `
+            <strong>Localized Name:</strong><br> ${hero.localized_name}<br>
+            <strong>Primary Attribute:</strong> ${hero.primary_attr.toUpperCase()}<br>
+            <strong>Attack Type:</strong> ${hero.attack_type}<br>
+            <strong>Roles:</strong> ${hero.roles.join(', ')}
+        `;
+
+        backCard.appendChild(infoDiv);
+
+        //assemble the card
+        innerCard.appendChild(cardFront);
+        innerCard.appendChild(backCard);
+        card.appendChild(innerCard);
+
+        //flip card on click
+        card.addEventListener('click', () => {
+            innerCard.classList.toggle('flipped');
+        });
 
         heroesContainer.appendChild(card);
     });

@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>API Test</title>
-    <script src="script.js"></script>
+    <title>Dota 2 Heroes</title>
+    <link rel="stylesheet" href="dota2Display.css">
 </head>
-
 <body>
-    <input type="text" id="name" placeholder="Enter Hero Name here">
-    <button onclick="fetchHero()">Fetch Hero</button><br>
 
-    <div id="heroName"></div>
-    <div id="heroRole"></div>
-    <img src="" alt="Sprite" id="sprite" style="display: none">
+    <!-- Fixed Header Section -->
+    <div id="header">
+        <h1 style="font-family: fantasy; font-size: 100px; margin-top: 0;">DOTA 2 HEROES</h1>
+        <input type="text" id="searchBar" placeholder="Search hero..." oninput="filterHeroes()">
+    </div>
 
+    <!-- Where heroes will be displayed -->
+    <div id="heroesContainer"></div>
+
+    <script src="script.js"></script>
 </body>
 </html>

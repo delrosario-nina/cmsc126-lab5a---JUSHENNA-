@@ -94,9 +94,6 @@ function filterHeroes() {
         hero.localized_name.toLowerCase().includes(name)
     );
 
-    if (!filterHeroes){
-        document.getElementById("heroesContainer").innerHTML = `<h1>Hero not found</h1>`
-    }
     displayHeroes(filteredHeroes);
 }
 
